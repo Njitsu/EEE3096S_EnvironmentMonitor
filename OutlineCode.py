@@ -65,4 +65,4 @@ try:                                                                       #try/
         time.sleep(delay)
 
 except KeyboardInterrupt:
-    spi.close()                                                         
+    spi.close()
