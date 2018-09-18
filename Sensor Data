@@ -14,3 +14,9 @@ def ConvertTemp(data, places):
     temp = (temp-0.5)*100
     return temp
    
+def ConvertLight(data,places):
+    light = (data*3.3)/float(1023)
+    light = round(light,places)
+    light = (light*100)
+    return light
+    
