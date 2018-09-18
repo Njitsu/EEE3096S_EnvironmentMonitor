@@ -77,7 +77,7 @@ def ConvertTemp(data, places):
 def ConvertLight(data,places):
     light = (data*3.3)/float(1023)
     light = round(light,places)
-    light = (light*100)
+    light = (light*50)
     return light
 
 def Timer(timer):
