@@ -62,11 +62,23 @@ def GetData(channel):											           #ADC data collection function
     adc = spi.xfer2([1,(8+channel)<<4,0])
     data = ((adc[1]&3) << 8) + adc[2]
     return data
-
+   
 def ConvertVolts(data, places):
     volts = (data*3.3)/float(1023)
     volts = round(volts,places)
     return volts
+   
+def ConvertTemp(data, places):
+    temp = (data*3.3)/float(1023)
+    temp = round(temp,places)
+    temp = (temp-0.5)*100
+    return temp
+   
+def ConvertLight(data,places):
+    light = (data*3.3)/float(1023)
+    light = round(light,places)
+    light = (light*100)
+    return light
 
 def Timer(timer):
     hours, rem = divmod(timer, 3600)
@@ -85,8 +97,8 @@ try:                                                                       #try/
     while True:  
         if monitor:
             pot = ConvertVolts(GetData(potChan), 1)
-            temp = int(ConvertVolts(GetData(tempChan), 2)-0.5)*100)
-            light = int(ConvertVolts(GetData(ldrChan), 2)*50)
+            temp = int(ConvertTemp(GetData(tempChan), 2))
+            light = int(ConvertLight(GetData(ldrChan), 2))
             if light>100:
                 light=100
         ctime = datetime.datetime.now().strftime('%H:%M:%S')
